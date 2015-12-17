@@ -1,4 +1,4 @@
-project('libjpeg', 'c')
+project('libjpeg', 'c', version : '9a', license : 'bsd-like')
 
 sources = [
   'jaricom.c', 'jcapimin.c', 'jcapistd.c', 'jcarith.c', 'jccoefct.c', 'jccolor.c',
@@ -78,15 +78,8 @@ configure_file(input : 'jconfig.h.meson',
   output : 'jconfig.h',
   configuration : cdata)
 
-if get_option('shared_lib')
-  libtype = 'shared_library'
-else
-  libtype = 'static_library'
-endif
-
-jpeg = build_target('jpeg',
+jpeg = library('jpeg',
   sources, memmgr_sources,
-  target_type : libtype,
 )
 
 cjpeg = executable('cjpeg',
@@ -113,3 +106,4 @@ rdjpgcom = executable('rdjpgcom', 'rdjpgcom.c',
 wrjpgcom = executable('wrjpgcom', 'wrjpgcom.c',
   link_with : jpeg,
 )
+
