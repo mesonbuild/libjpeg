@@ -1,4 +1,4 @@
-project('libjpeg', 'c', version : '9a', license : 'bsd-like')
+project('libjpeg', 'c', version : '9c', license : 'bsd-like')
 
 sources = [
   'jaricom.c', 'jcapimin.c', 'jcapistd.c', 'jcarith.c', 'jccoefct.c', 'jccolor.c',
@@ -82,28 +82,32 @@ jpeg = library('jpeg',
   sources, memmgr_sources,
 )
 
+jpeg_dep = declare_dependency(
+  include_directories : include_directories('.'),
+  link_with : jpeg
+)
+
 cjpeg = executable('cjpeg',
   'cjpeg.c', 'rdppm.c', 'rdgif.c', 'rdtarga.c', 'rdrle.c', 'rdbmp.c',
   'rdswitch.c', 'cdjpeg.c',
-  link_with : jpeg
+  dependencies : jpeg_dep
 )
 
 djpeg = executable('djpeg',
   'djpeg.c', 'wrppm.c', 'wrgif.c', 'wrtarga.c', 'wrrle.c', 'wrbmp.c',
   'rdcolmap.c', 'cdjpeg.c',
-  link_with : jpeg,
+  dependencies : jpeg_dep
 )
 
 jpegtran = executable('jpegtran',
   'jpegtran.c', 'rdswitch.c', 'cdjpeg.c', 'transupp.c',
-  link_with : jpeg,
+  dependencies : jpeg_dep
 )
 
 rdjpgcom = executable('rdjpgcom', 'rdjpgcom.c',
-  link_with : jpeg,
+  dependencies : jpeg_dep
 )
 
 wrjpgcom = executable('wrjpgcom', 'wrjpgcom.c',
-  link_with : jpeg,
+  dependencies : jpeg_dep
 )
-
