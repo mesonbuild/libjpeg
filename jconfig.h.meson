@@ -1,0 +1,59 @@
+/* jconfig.cfg --- source file edited by configure script */
+/* see jconfig.txt for explanations */
+
+#mesondefine HAVE_PROTOTYPES
+#mesondefine HAVE_UNSIGNED_CHAR
+#mesondefine HAVE_UNSIGNED_SHORT
+#mesondefine void
+#mesondefine const
+#mesondefine CHAR_IS_UNSIGNED
+#mesondefine HAVE_STDDEF_H
+#mesondefine HAVE_STDLIB_H
+#mesondefine HAVE_LOCALE_H
+#mesondefine NEED_BSD_STRINGS
+#mesondefine NEED_SYS_TYPES_H
+#mesondefine NEED_FAR_POINTERS
+#mesondefine NEED_SHORT_EXTERNAL_NAMES
+/* Define this if you get warnings about undefined structures. */
+#mesondefine INCOMPLETE_TYPES_BROKEN
+
+/* Define "boolean" as unsigned char, not enum, on Windows systems. */
+#ifdef _WIN32
+#ifndef __RPCNDR_H__		/* don't conflict if rpcndr.h already read */
+typedef unsigned char boolean;
+#endif
+#ifndef FALSE			/* in case these macros already exist */
+#define FALSE	0		/* values of boolean */
+#endif
+#ifndef TRUE
+#define TRUE	1
+#endif
+#define HAVE_BOOLEAN		/* prevent jmorecfg.h from redefining it */
+#endif
+
+#ifdef JPEG_INTERNALS
+
+#mesondefine RIGHT_SHIFT_IS_UNSIGNED
+#mesondefine INLINE
+/* These are for configuring the JPEG memory manager. */
+#mesondefine DEFAULT_MAX_MEM
+#mesondefine NO_MKTEMP
+
+#endif /* JPEG_INTERNALS */
+
+#ifdef JPEG_CJPEG_DJPEG
+
+#define BMP_SUPPORTED		/* BMP image file format */
+#define GIF_SUPPORTED		/* GIF image file format */
+#define PPM_SUPPORTED		/* PBMPLUS PPM/PGM image file format */
+#undef RLE_SUPPORTED		/* Utah RLE image file format */
+#define TARGA_SUPPORTED		/* Targa image file format */
+
+#mesondefine TWO_FILE_COMMANDLINE
+#mesondefine NEED_SIGNAL_CATCHER
+#mesondefine DONT_USE_B_MODE
+
+/* Define this if you want percent-done progress reports from cjpeg/djpeg. */
+#mesondefine PROGRESS_REPORT
+
+#endif /* JPEG_CJPEG_DJPEG */
