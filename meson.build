@@ -80,6 +80,7 @@ configure_file(input : 'jconfig.h.meson',
 
 jpeg = library('jpeg',
   sources, memmgr_sources,
+  install: true,
 )
 
 jpeg_dep = declare_dependency(
